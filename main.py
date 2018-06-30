@@ -12,18 +12,23 @@ logging.basicConfig(level=logging.DEBUG)
 
 def main():
 	# Build current state
-	light_list = sorted(get_lights())
-	logging.debug("light_list: " + prettify_json(light_list))
-	current_state = []
-	for light_num in light_list:
-		light_state = get_light_state(light_num)
-		logging.debug("light_state: " + prettify_json(light_state))
-		current_state.append(light_state)
-
-	# Print current state
+	current_state = get_current_state()
 	print(prettify_json(current_state))
 
 	# TODO: Monitor for changes
+
+def get_current_state():
+	"""Get state of all lights"""
+
+	light_list = sorted(get_lights())
+	logging.debug("light_list: " + prettify_json(light_list))
+	state = []
+	for light_num in light_list:
+		light_state = get_light_state(light_num)
+		logging.debug("light_state: " + prettify_json(light_state))
+		state.append(light_state)
+
+	return state
 
 def get_lights():
 	"""Get all lights the server knows about
