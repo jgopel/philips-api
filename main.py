@@ -1,17 +1,24 @@
 #!/usr/bin/python3
 
 import json
+import logging
 import requests
 import urllib
 
 API_SERVER = "http://localhost:8080"
 LIGHTS_API = urllib.parse.urljoin(API_SERVER, "api/newdeveloper/lights/")
 
+logging.basicConfig(level=logging.DEBUG)
+
 def main():
 	# Build current state
+	light_list = sorted(get_lights())
+	logging.debug("light_list: " + prettify_json(light_list))
 	current_state = []
-	for light_num in sorted(get_lights()):
-		current_state.append(get_light_state(light_num))
+	for light_num in light_list:
+		light_state = get_light_state(light_num)
+		logging.debug("light_state: " + prettify_json(light_state))
+		current_state.append(light_state)
 
 	# Print current state
 	print(prettify_json(current_state))
