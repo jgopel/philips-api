@@ -9,7 +9,7 @@ import urllib
 API_SERVER = "http://localhost:8080"
 LIGHTS_API = urllib.parse.urljoin(API_SERVER, "api/newdeveloper/lights/")
 
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.ERROR)
 
 def main():
 	# Build current state
